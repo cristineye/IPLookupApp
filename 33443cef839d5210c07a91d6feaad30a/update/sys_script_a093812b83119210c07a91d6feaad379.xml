@@ -32,28 +32,20 @@
     try {
         var r = new sn_ws.RESTMessageV2('x_1548637_iplookup.IPInfo', 'GetIPInfo');
         r.setStringParameterNoEscape('specific_field', 'geo');
-        r.setStringParameterNoEscape('ipaddress', 'current.ip_address');
-
-        //override authentication profile 
-        //authentication type ='basic'/ 'oauth2'
-        //r.setAuthenticationProfile(authentication type, profile name);
-
-        //set a MID server name if one wants to run the message on MID
-        //r.setMIDServer('MY_MID_SERVER');
-
-        //if the message is configured to communicate through ECC queue, either
-        //by setting a MID server or calling executeAsync, one needs to set skip_sensor
-        //to true. Otherwise, one may get an intermittent error that the response body is null
-        //r.setEccParameter('skip_sensor', true);
-
+        r.setStringParameterNoEscape('ipaddress', current.ip_address);
+        //gs.info("Current IP=" + current.ip_address);
         var response = r.execute();
+        //gs.info("execute request success");
         var responseBody = response.getBody();
+        //gs.info("get response success");
         var httpStatus = response.getStatusCode();
-        //convert the Json Formatter String to a javascript object
+       //gs.info("httpstatus success");
+        //Convert the JSON formatted string to a JavaScript Object
         var responseObj = JSON.parse(responseBody);
-        //Set the value of city field on the IPAdress record
+        //gs.info(" json parse success");
+        //Set the value of the City field on the IPAddressInfo record
         current.city = responseObj.city;
-        gs.info("City = " + current.city);
+        gs.info("current.city = " + current.city);
         current.update();
     } catch (ex) {
         gs.info("Uncaught error = " + ex);
@@ -66,7 +58,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a093812b83119210c07a91d6feaad379</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>33</sys_mod_count>
         <sys_name>Populate IP Address City</sys_name>
         <sys_overrides/>
         <sys_package display_value="IPLookup" source="x_1548637_iplookup">33443cef839d5210c07a91d6feaad30a</sys_package>
@@ -74,7 +66,7 @@
         <sys_scope display_value="IPLookup">33443cef839d5210c07a91d6feaad30a</sys_scope>
         <sys_update_name>sys_script_a093812b83119210c07a91d6feaad379</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-10-23 07:26:50</sys_updated_on>
+        <sys_updated_on>2024-10-23 11:04:29</sys_updated_on>
         <template/>
         <when>async_always</when>
     </sys_script>
